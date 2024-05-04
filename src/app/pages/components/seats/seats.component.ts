@@ -23,10 +23,10 @@ export class SeatsComponent implements OnInit{
   cardSeats: Seats[]= [];
   eventId: number;
 
+  inCard: boolean =false;
 
-  totalAmt: number =0;
+  totalAmt: number = 0;
   totalTickets:number=0;
-
 
   targetProducts: Seats[];
 
@@ -37,8 +37,7 @@ export class SeatsComponent implements OnInit{
     console.log(this.eventId)
 
     this.listSeats(this.eventId);
-
-        
+    
     
   }
 listSeats(eid:number):void{
@@ -50,22 +49,35 @@ listSeats(eid:number):void{
   seatsInCard(seat:Seats):void{
   
     this.cardSeats.push(seat);
-    console.log(this.cardSeats)
+
+    this.inCard = this.cardSeats.some(s => s.seatID === seat.seatID);
+    
     this.cardPlus(seat);
+   
   
   }
   DeleteSeatFromCard(seatNumber:string ):void{
-    
-    this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
-    this.totalAmt -= this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
- 
+    this.totalAmt = this.totalAmt -this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
     this.totalTickets -=1;
+
+    this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
+    this.enableButton();
 }
 cardPlus(seat:Seats):void{
  
     this.totalAmt += seat.price;
     this.totalTickets +=1;
    
+}
+disableButton(event: MouseEvent): boolean {
+  const button = event.target as HTMLButtonElement;
+  button.disabled = true;
+  return button.disabled;
+}
+
+enableButton(): void {
+  const button = document.querySelector('.button') as HTMLButtonElement;
+  button.disabled = false;
 }
 
 }
