@@ -21,9 +21,9 @@
  
          </tr>
      </tbody>
- </table>
+ </table><br>
  <div>
-    <button class="text" style="margin-left: 75%;" >My tickets</button>
+    <button class="text" style="margin-right: 75%;" >My tickets</button>
  </div>
  <div >
     <table style ="border: 1px solid black; width:80%">
@@ -43,12 +43,12 @@
                  <td>{{seat.price}}</td>
                  <td>{{seat.available}}</td>
                  <td>
-                     <button class="button" (click)="DeleteSeatFromCard(seat.seatID)" >Delete item</button>
+                     <button class="button" (click)="DeleteSeatFromCard(seat.seatNumber)" >Delete item</button>
                  </td>
          </tr>
      </tbody>
      
- </table>
+ </table><br><br>
  <div>
     <div >
         <table style ="border: 1px solid black; width:80%">
@@ -63,12 +63,12 @@
          </thead>
      
          <tbody> 
-             <tr *ngFor ="let seat of cardSeats">
-                     <td>{{seat.seatID}}</td>
-                     <td>{{seat.seatNumber}}</td>
+             <tr>
+                     <td>{{totalTickets}}</td>
+                     <td>{{totalAmt}}</td>
                      
                      <td>
-                         <button class="button" (click)="seatsInCard(seat)" >Buy</button>
+                         <button>Buy</button>
                      </td>
              </tr>
          </tbody>

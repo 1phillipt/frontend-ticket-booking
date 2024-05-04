@@ -24,6 +24,9 @@ export class SeatsComponent implements OnInit{
   eventId: number;
 
 
+  totalAmt: number =0;
+  totalTickets:number=0;
+
 
   targetProducts: Seats[];
 
@@ -48,13 +51,20 @@ listSeats(eid:number):void{
   
     this.cardSeats.push(seat);
     console.log(this.cardSeats)
+    this.cardPlus(seat);
   
   }
-  DeleteSeatFromCard(seatId:Number ):void{
-    console.log(seatId);
-
-    this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatID == seatId), 1);
-
-    console.log(this.cardSeats);
+  DeleteSeatFromCard(seatNumber:string ):void{
+    
+    this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
+    this.totalAmt = this.totalAmt = this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
+    this.totalTickets -=1;
 }
+cardPlus(seat:Seats):void{
+ 
+    this.totalAmt += seat.price;
+    this.totalTickets +=1;
+   
+}
+
 }
