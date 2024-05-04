@@ -20,6 +20,7 @@ export class SeatsComponent implements OnInit{
   formGroup: FormGroup;
 
   seatList: Seats[] = [];
+  cardSeats: Seats[]= [];
   eventId: number;
 
   constructor( private userService: UserService, private router: Router, private route:ActivatedRoute){}
@@ -36,6 +37,12 @@ listSeats(eid:number):void{
     console.log(listOfseat);
       this.seatList = listOfseat;
   })}
+
+  seatsInCard(seat:Seats):void{
+  
+    this.cardSeats.push(seat);
+    console.log(this.cardSeats)
+  }
 
 
 }
