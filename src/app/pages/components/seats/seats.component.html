@@ -22,4 +22,57 @@
          </tr>
      </tbody>
  </table>
+ <div>
+    <button class="text" style="margin-left: 75%;" >My tickets</button>
+ </div>
+ <div >
+    <table style ="border: 1px solid black; width:80%">
+     <thead>
+         <tr>
+                 <th>Seat ID</th>
+                 <th>Seat Number</th>
+                 <th>Price</th>
+                 <th>Available</th>
+         </tr>
+     </thead>
+ 
+     <tbody> 
+         <tr *ngFor ="let seat of cardSeats">
+                 <td>{{seat.seatID}}</td>
+                 <td>{{seat.seatNumber}}</td>
+                 <td>{{seat.price}}</td>
+                 <td>{{seat.available}}</td>
+                 <td>
+                     <button class="button" (click)="DeleteSeatFromCard(seat.seatID)" >Delete item</button>
+                 </td>
+         </tr>
+     </tbody>
+     
+ </table>
+ <div>
+    <div >
+        <table style ="border: 1px solid black; width:80%">
+         <thead>
+             <tr>
+                     <th>Total tickets</th>
+                     <th> Total amount </th>
+                     <th> Buy</th>
+                   
+                    
+             </tr>
+         </thead>
+     
+         <tbody> 
+             <tr *ngFor ="let seat of cardSeats">
+                     <td>{{seat.seatID}}</td>
+                     <td>{{seat.seatNumber}}</td>
+                     
+                     <td>
+                         <button class="button" (click)="seatsInCard(seat)" >Buy</button>
+                     </td>
+             </tr>
+         </tbody>
+         
+     </table>
+     <div>
  </div>

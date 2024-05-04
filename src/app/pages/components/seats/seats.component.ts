@@ -23,6 +23,10 @@ export class SeatsComponent implements OnInit{
   cardSeats: Seats[]= [];
   eventId: number;
 
+
+
+  targetProducts: Seats[];
+
   constructor( private userService: UserService, private router: Router, private route:ActivatedRoute){}
 
   ngOnInit(): void {
@@ -30,6 +34,8 @@ export class SeatsComponent implements OnInit{
     console.log(this.eventId)
 
     this.listSeats(this.eventId);
+
+        
     
   }
 listSeats(eid:number):void{
@@ -42,7 +48,13 @@ listSeats(eid:number):void{
   
     this.cardSeats.push(seat);
     console.log(this.cardSeats)
+  
   }
+  DeleteSeatFromCard(seatId:Number ):void{
+    console.log(seatId);
 
+    this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatID == seatId), 1);
 
+    console.log(this.cardSeats);
+}
 }
