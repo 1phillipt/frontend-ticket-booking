@@ -48,7 +48,10 @@ listSeats(eid:number):void{
 
   seatsInCard(seat:Seats):void{
   
-    this.cardSeats.push(seat);
+   if(this.cardSeats.find(cardseat => cardseat.seatNumber === seat.seatNumber)?.seatID === seat.seatID){
+    alert("already in card")
+   }else{this.cardSeats.push(seat);}
+    
 
     this.inCard = this.cardSeats.some(s => s.seatID === seat.seatID);
     
