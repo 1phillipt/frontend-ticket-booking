@@ -57,7 +57,8 @@ listSeats(eid:number):void{
   DeleteSeatFromCard(seatNumber:string ):void{
     
     this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
-    this.totalAmt = this.totalAmt = this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
+    this.totalAmt -= this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
+ 
     this.totalTickets -=1;
 }
 cardPlus(seat:Seats):void{
