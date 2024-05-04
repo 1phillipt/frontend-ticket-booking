@@ -1,0 +1,24 @@
+<div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+        
+            <label>First Name</label>
+                <input type = "text" id ="fname" formControlName = "fname" placeholder="First Name"> <br><br>
+        
+            <label>Last Name</label>
+                <input type = "text" id ="lname" formControlName = "lname" placeholder="Last Name"><br><br>
+            
+            <label>Phone Number</label>
+            <input type = "text" id ="fname" formControlName = "phoneNumber" placeholder="Phone Number"> <br><br>
+    
+            <label>Email </label>
+            <input type = "text" id ="email" formControlName = "email" placeholder="Email"><br><br>
+
+
+            <label>Password</label>
+            <input type = "text" id ="password" formControlName = "password" placeholder="password"><br><br>
+        
+            <button type ="submit">Sign Up</button>
+   
+    </form>
+</div>

@@ -1,0 +1,28 @@
+<div >
+   <table style ="border: 1px solid black; width:80%">
+    <thead>
+        <tr>
+                <th>Event</th>
+                <th>Event Date</th>
+                <th>Event Time</th>
+                <th>Event Name</th>
+                <th>Venue</th>
+               
+        </tr>
+    </thead>
+
+    <tbody> 
+        <tr *ngFor ="let event of eventList">
+                <td>{{event.eventId}}</td>
+                <td>{{event.eventDate}}</td>
+                <td>{{event.eventTime}}</td>
+                <td>{{event.name}}</td>
+                <td>{{event.venueName}}</td>
+                <td>
+                    <button routerLink="/event/{{event.eventId}}">Find Seats</button>
+                </td>
+
+        </tr>
+    </tbody>
+</table>
+</div>
