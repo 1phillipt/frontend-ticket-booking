@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       (cusId: number| null) => {
         this.customerId = cusId;
         alert(this.customerId)
-       if(cusId === null){
+       if(cusId == null){
         alert("please check email and password and try logging in again")
        }else{
         alert("signin success")
