@@ -33,7 +33,9 @@ export class SeatsComponent implements OnInit{
   constructor( private userService: UserService, private router: Router, private route:ActivatedRoute){}
 
   ngOnInit(): void {
+
     this.eventId = parseInt(this.route.snapshot.paramMap.get('id'));
+    
     console.log(this.eventId)
 
     this.listSeats(this.eventId);
@@ -50,21 +52,20 @@ listSeats(eid:number):void{
   
    if(this.cardSeats.find(cardseat => cardseat.seatNumber === seat.seatNumber)?.seatID === seat.seatID){
     alert("already in card")
-   }else{this.cardSeats.push(seat);}
+   }else{this.cardSeats.push(seat);
     
-
-    this.inCard = this.cardSeats.some(s => s.seatID === seat.seatID);
+     this.inCard = this.cardSeats.some(s => s.seatID === seat.seatID);
     
-    this.cardPlus(seat);
-   
-  
+     this.cardPlus(seat);
+   }
   }
+  
   DeleteSeatFromCard(seatNumber:string ):void{
-    this.totalAmt = this.totalAmt -this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
+    this.totalAmt = this.totalAmt - this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
     this.totalTickets -=1;
 
     this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
-    this.enableButton();
+ 
 }
 cardPlus(seat:Seats):void{
  
@@ -76,11 +77,6 @@ disableButton(event: MouseEvent): boolean {
   const button = event.target as HTMLButtonElement;
   button.disabled = true;
   return button.disabled;
-}
-
-enableButton(): void {
-  const button = document.querySelector('.button') as HTMLButtonElement;
-  button.disabled = false;
 }
 
 }

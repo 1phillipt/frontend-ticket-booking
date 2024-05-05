@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import {RouterModule } from '@angular/router';
@@ -17,25 +17,30 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  customerId: number;
+
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router){}
 
 
   ngOnInit(): void {
      this.loginForm = this.formBuilder.group({
-      email: [''],
-      password: ['']
+      email: ['',Validators.required],
+      password: ['',Validators.required]
      });
   }
   login(): void {
     const logindata = this.loginForm.value;
   
     this.userService.login(logindata).subscribe(
-      (result: string) => {
-       if(result ==='login successful'){
-        alert("signin success")
-        this.router.navigate(['events']);
+      (cusId: number| null) => {
+        this.customerId = cusId;
+        alert(this.customerId)
+       if(cusId === null){
+        alert("please check email and password and try logging in again")
        }else{
-        alert(result)
+        alert("signin success")
+        this.customerId = cusId;
+        this.router.navigate(['events']);
        }  
       }
     );

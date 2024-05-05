@@ -26,13 +26,13 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
 //login for a customer
-  login(login:Login): Observable<string>{
-    return this.http.post<string>(this.loginApi.concat('/verify'),login, {responseType: 'text' as 'json'});
+  login(login:Login): Observable<Number>{
+    return this.http.post<Number>(this.loginApi.concat('/verify'),login, {responseType: 'text' as 'json'});
   }
 
-  //signup a customer
-  signup(signup:Signup): Observable<string>{
-   return this.http.post<string>(this.signUpApi,signup,{responseType: 'text' as 'json'});
+  //signup a customer returns customer id
+  signup(signup:Signup): Observable<Number>{
+   return this.http.post<Number>(this.signUpApi,signup,{responseType: 'text' as 'json'});
   }
    EventsList():Observable<Events[]>{
     return this.http.get<Events[]>(this.eventsApi, this.httpOptions);

@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/components/login/login.component';
 import { SignupComponent } from './pages/components/signup/signup.component';
 import { EventsComponent } from './pages/components/events/events.component';
 import { SeatsComponent } from './pages/components/seats/seats.component';
+import { PaymentinfoComponent } from './pages/components/paymentinfo/paymentinfo.component';
 
 export const routes: Routes = [
     {path: '',component:LoginComponent},
@@ -10,5 +11,5 @@ export const routes: Routes = [
     {path: 'events', component: EventsComponent},
     {path:'seats', component:SeatsComponent},
     {path:'event/:id', component:SeatsComponent},
-    {path:'paymentinfo/:id', component:SeatsComponent}
+    {path:'paymentinfo/:customeId', component:PaymentinfoComponent}
 ];

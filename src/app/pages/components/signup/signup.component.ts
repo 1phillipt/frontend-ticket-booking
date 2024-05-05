@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit{
 
+  @Input() customerId = 1;
+
   signupForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router:Router){}
@@ -21,18 +23,19 @@ export class SignupComponent implements OnInit{
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
-    fname: [''],
-    lname: [''],
-    phoneNumber: [''],
-    email: [''],
-    password: ['']
+    fname: ['', Validators.required],
+    lname: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required]
     })
   }
   signup(): void{
-      this.userService.signup(this.signupForm.value).subscribe((result: string) =>{
-        if(result === "user already exist" ){
-          alert("user aleady exist")
+      this.userService.signup(this.signupForm.value).subscribe((cusId: number) =>{
+        if(cusId !== null){
+          alert("user aleady exist by given phone number or email")
         }else{
+          alert("signup successful, you can login now")
           this.router.navigate(['']);
         }
       });

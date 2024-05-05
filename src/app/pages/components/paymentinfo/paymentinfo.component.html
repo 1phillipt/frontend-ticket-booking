@@ -1,0 +1,15 @@
+<div>
+    <div>
+
+        <form [formGroup]="paymentinfo" (ngSubmit)="newPayment()">
+            
+                <label>Card number</label>
+                    <input type = "text" id ="cardNumber" formControlName = "cardNumber" placeholder="Card number"> <br><br>
+            
+                <label>Card Type</label>
+                    <input type = "radio" id ="cardType" formControlName = "cardType" placeholder="Card Type"><br><br>
+    
+            
+                <button type ="submit">Save</button>
+       
+        </form>
