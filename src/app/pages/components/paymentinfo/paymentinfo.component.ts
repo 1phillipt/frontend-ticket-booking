@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import {RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { Login } from '../../models/Login';
 import { LoginComponent } from '../login/login.component';
+import { Paymentinfo } from '../../models/paymentinfo';
 
 @Component({
   selector: 'app-paymentinfo',
@@ -16,7 +17,8 @@ import { LoginComponent } from '../login/login.component';
 })
 export class PaymentinfoComponent implements OnInit{
 
-customerId: number;
+  cId:number;
+
 paymentinfo: FormGroup;
 
 constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router ){}
@@ -26,10 +28,23 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
     cardNumber: [''],
     paymentType: ['']
     })
+     }
+  
+  savePaymentInfo():void{
+    this.paymentinfo.value[this.cId = this.userService.custumerId]
+    this.userService.newPaymentInfo(this.paymentinfo.value).subscribe((result:String) =>
+      {
+        if(result === "saved"){
+          alert("payment saved")
+        } else{
+            alert("error saving payment information")
+        }
+      })
   }
-  newPayment():void{
+
+  paymentInfo():void{
     
-      this.router.navigate
   }
+
 
 }

@@ -31,8 +31,8 @@ export class SignupComponent implements OnInit{
     })
   }
   signup(): void{
-      this.userService.signup(this.signupForm.value).subscribe((cusId: number) =>{
-        if(cusId !== null){
+      this.userService.signup(this.signupForm.value).subscribe((result: string) =>{
+        if(result === "exist"){
           alert("user aleady exist by given phone number or email")
         }else{
           alert("signup successful, you can login now")

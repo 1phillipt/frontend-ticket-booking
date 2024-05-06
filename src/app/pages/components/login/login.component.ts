@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  customerId: number;
+  cId: number;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router){}
 
@@ -33,13 +33,14 @@ export class LoginComponent implements OnInit {
   
     this.userService.login(logindata).subscribe(
       (cusId: number| null) => {
-        this.customerId = cusId;
-        alert(this.customerId)
+        this.cId = cusId;
+        alert(this.cId)
        if(cusId == null){
         alert("please check email and password and try logging in again")
        }else{
         alert("signin success")
-        this.customerId = cusId;
+        this.cId = cusId;
+        this.userService.custumerId = this.cId;
         this.router.navigate(['events']);
        }  
       }

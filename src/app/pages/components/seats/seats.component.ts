@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Seats } from '../../models/seats';
 import { UserService } from '../../../services/user.service';
@@ -22,6 +22,8 @@ export class SeatsComponent implements OnInit{
   seatList: Seats[] = [];
   cardSeats: Seats[]= [];
   eventId: number;
+  customerId: number;
+  
 
   inCard: boolean =false;
 
@@ -38,6 +40,8 @@ export class SeatsComponent implements OnInit{
     
     console.log(this.eventId)
 
+    this.customerId = this.userService.custumerId;
+    
     this.listSeats(this.eventId);
     
     
@@ -46,6 +50,7 @@ listSeats(eid:number):void{
   this.userService.seatList(eid).subscribe((listOfseat: Seats[])=>{
     console.log(listOfseat);
       this.seatList = listOfseat;
+      alert(this.customerId)
   })}
 
   seatsInCard(seat:Seats):void{

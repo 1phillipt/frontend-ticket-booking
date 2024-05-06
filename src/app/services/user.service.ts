@@ -7,6 +7,7 @@ import { Login } from '../pages/models/Login';
 import { Signup } from '../pages/models/Signup';
 import { Events } from '../pages/models/Events';
 import { Seats } from '../pages/models/seats';
+import { Paymentinfo } from '../pages/models/paymentinfo';
 
 
 @Injectable({
@@ -17,6 +18,9 @@ export class UserService {
   signUpApi: string = 'http://localhost:8081/api/v1/customer';
   eventsApi: string = 'http://localhost:8081/api/v1/event';
   seatsByEventIdApi: string = 'http://localhost:8081/api/v1/seat/event'
+  savePaymentInfoApi: string = 'http://localhost:8081/api/v1/'
+
+  custumerId: number;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -31,8 +35,8 @@ export class UserService {
   }
 
   //signup a customer returns customer id
-  signup(signup:Signup): Observable<Number>{
-   return this.http.post<Number>(this.signUpApi,signup,{responseType: 'text' as 'json'});
+  signup(signup:Signup): Observable<string>{
+   return this.http.post<string>(this.signUpApi,signup,{responseType: 'text' as 'json'});
   }
    EventsList():Observable<Events[]>{
     return this.http.get<Events[]>(this.eventsApi, this.httpOptions);
@@ -40,6 +44,10 @@ export class UserService {
 
    seatList(eventId: number):Observable<Seats[]>{
     return this.http.get<Seats[]>(this.seatsByEventIdApi.concat("/").concat(eventId + ''), this.httpOptions)
+   }
+
+   newPaymentInfo(paymentinfo: Paymentinfo):Observable<string>{
+    return this.http.post<string>(this.savePaymentInfo,paymentinfo,{responseType: 'text' as 'json'})
    }
 
 }

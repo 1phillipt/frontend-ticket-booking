@@ -1,15 +1,40 @@
-<div>
+
     <div>
 
         <form [formGroup]="paymentinfo" (ngSubmit)="newPayment()">
-            
+            <label>Add new payment</label> <br><br>
                 <label>Card number</label>
                     <input type = "text" id ="cardNumber" formControlName = "cardNumber" placeholder="Card number"> <br><br>
             
-                <label>Card Type</label>
-                    <input type = "radio" id ="cardType" formControlName = "cardType" placeholder="Card Type"><br><br>
+                <label>Payment Options</label> 
+                <br><br>
+                    <label > Debit Card </label>
+                    <input type = "radio" id ="debitCard" formControlName = "debitCard" placeholder="Debit card">
+                    <label > Credit Card </label>
+                    <input type = "radio" id ="creditCard" formControlName = "debitCard" placeholder="Credit card"><br><br>
     
             
                 <button type ="submit">Save</button>
-       
+    
         </form>
+    </div>
+    <table style ="border: 1px solid black; width:80%">
+        <thead>
+            <tr>
+                    <th>Card</th>
+                    <th> Total amount </th>
+                    <th> Use this card and pay</th>
+                   
+            </tr>
+        </thead>
+    
+        <tbody> 
+            <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+        </tbody>
+        
+    </table>
+        

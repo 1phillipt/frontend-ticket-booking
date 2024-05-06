@@ -11,5 +11,5 @@ export const routes: Routes = [
     {path: 'events', component: EventsComponent},
     {path:'seats', component:SeatsComponent},
     {path:'event/:id', component:SeatsComponent},
-    {path:'paymentinfo/:customeId', component:PaymentinfoComponent}
+    {path:'paymentinfo/:customerId', component:PaymentinfoComponent}
 ];
