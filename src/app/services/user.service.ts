@@ -18,7 +18,8 @@ export class UserService {
   signUpApi: string = 'http://localhost:8081/api/v1/customer';
   eventsApi: string = 'http://localhost:8081/api/v1/event';
   seatsByEventIdApi: string = 'http://localhost:8081/api/v1/seat/event'
-  savePaymentInfoApi: string = 'http://localhost:8081/api/v1/'
+  savePaymentInfoApi: string = 'http://localhost:8081/api/v1/paymentinfo'
+  listOfPaymentInfo: string ='http://localhost:8081/api/v1/paymentinfo'
 
   custumerId: number;
 
@@ -47,7 +48,11 @@ export class UserService {
    }
 
    newPaymentInfo(paymentinfo: Paymentinfo):Observable<string>{
-    return this.http.post<string>(this.savePaymentInfo,paymentinfo,{responseType: 'text' as 'json'})
+    return this.http.post<string>(this.savePaymentInfoApi,paymentinfo,{responseType: 'text' as 'json'})
+   }
+
+   paymentInfos(customerId: number):Observable<Paymentinfo[]>{
+    return this.http.get<Paymentinfo[]>(this.listOfPaymentInfo.concat("/").concat(customerId + ''), this.httpOptions)
    }
 
 }

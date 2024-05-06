@@ -33,7 +33,7 @@ constomerId:number;
   }
 
   events():void{ 
-  
+
     this.userService.EventsList().subscribe((listOfEvents: Events[])=>{
       console.log(listOfEvents);
         this.eventList = listOfEvents;  

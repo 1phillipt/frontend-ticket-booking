@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, input } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import {RouterModule } from '@angular/router';
@@ -7,43 +7,52 @@ import { UserService } from '../../../services/user.service';
 import { Login } from '../../models/Login';
 import { LoginComponent } from '../login/login.component';
 import { Paymentinfo } from '../../models/paymentinfo';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-paymentinfo',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule],
   templateUrl: './paymentinfo.component.html',
   styleUrl: './paymentinfo.component.scss'
 })
 export class PaymentinfoComponent implements OnInit{
 
-  cId:number;
 
-paymentinfo: FormGroup;
+cId:number =this.userService.custumerId;
+
+allCardsByCustomer: Paymentinfo[] = []
+
+paymentinfoGroup: FormGroup;
+  customerId: any;
 
 constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router ){}
 
   ngOnInit(): void {
-    this.paymentinfo =this.formBuilder.group({
-    cardNumber: [''],
-    paymentType: ['']
+    this.paymentinfoGroup =this.formBuilder.group({
+    cardNumber: ['' ,Validators.required],
+    paymentType: ['',Validators.required],
+    customerId:this.cId
     })
+    this.paymentInfo(this.cId)
+    console.log(this.allCardsByCustomer)
      }
   
   savePaymentInfo():void{
-    this.paymentinfo.value[this.cId = this.userService.custumerId]
-    this.userService.newPaymentInfo(this.paymentinfo.value).subscribe((result:String) =>
+  
+    console.log(this.paymentinfoGroup.value);
+    this.userService.newPaymentInfo(this.paymentinfoGroup.value).subscribe((result:String) =>
       {
-        if(result === "saved"){
+        if(result === "payment info saved"){
           alert("payment saved")
         } else{
-            alert("error saving payment information")
+            alert("payment info already exist")
         }
       })
   }
 
-  paymentInfo():void{
-    
+  paymentInfo(customerId):void{
+    this.userService.paymentInfos(customerId).subscribe((listOfcardsBycustomer: Paymentinfo[])=> this.allCardsByCustomer = listOfcardsBycustomer)
   }
 
 
