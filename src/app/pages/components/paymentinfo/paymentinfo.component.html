@@ -18,6 +18,32 @@
     
         </form>
     </div>
+    <div >
+        <div>
+            Card Items
+        </div>
+        <table style ="border: 1px solid black; width:80%">
+         <thead>
+             <tr>
+                     <th>Total seats</th>
+                     <th>total amount</th>
+             </tr>
+         </thead>
+     
+         <tbody> 
+             <tr>
+                    <td>{{totalTickets}}</td>
+                    <td>{{totalAmount}}</td>
+                     <td>
+                        <button routerLink="/event/{{eventId}}">Edit Card</button>
+                     </td>
+                    
+             </tr>
+          
+         </tbody>
+        </table>
+    </div>
+    <div> Payment information</div>
     <table style ="border: 1px solid black; width:80%">
         <thead>
             <tr >
@@ -37,10 +63,11 @@
                         {{card.paymentType}}
                     </td>
                     <td> 
-                        <button class="button">Use this as payment</button>
+                        <button class="button" (click)="deletePaymentMethod(cId,card.cardNumber)">Delete this Payment Method</button>
+                        
                     </td>
                     <td>
-                        <button class="button" (click)="deletePaymentMethod(cId,card.cardNumber)">Delete item</button>
+                        <button class="button">Confirm and Pay</button>
                     </td>
                 
                

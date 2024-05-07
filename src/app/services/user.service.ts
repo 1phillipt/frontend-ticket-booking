@@ -23,6 +23,10 @@ export class UserService {
   deletePaymentInfo: string = 'http://localhost:8081/api/v1/paymentinfo'
 
   custumerId: number;
+  seatsInCard: Seats[]= [];
+  eventId: number;
+  totalAmt: number;
+  totalTickets:number;
 
   httpOptions = {
     headers: new HttpHeaders({

@@ -1,13 +1,15 @@
 import { Component, OnInit, Input, input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { Login } from '../../models/Login';
 import { LoginComponent } from '../login/login.component';
 import { Paymentinfo } from '../../models/paymentinfo';
 import { CommonModule } from '@angular/common';
+import { Seats } from '../../models/seats';
+
 
 @Component({
   selector: 'app-paymentinfo',
@@ -20,13 +22,18 @@ export class PaymentinfoComponent implements OnInit{
 
 
 cId:number =this.userService.custumerId;
+eventId:number = this.userService.eventId;
+totalAmount: number = this.userService.totalAmt;
+totalTickets: number =this.userService.totalTickets;
 
 allCardsByCustomer: Paymentinfo[] = []
+
+seatsInCard: Seats[]= [];
 
 paymentinfoGroup: FormGroup;
   customerId: any;
 
-constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router ){}
+constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,private route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.paymentinfoGroup =this.formBuilder.group({
@@ -35,7 +42,7 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
     customerId:this.cId
     })
     this.paymentInfo(this.cId)
-    
+    this.seatsInCard = this.userService.seatsInCard;
      }
   
   savePaymentInfo():void{
@@ -64,11 +71,15 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
       
      this.allCardsByCustomer.splice(this.allCardsByCustomer.findIndex(paymentInfo => paymentInfo.cardNumber = cardNumber),1)
       )
-      this.paymentInfo(customerId)
+      this.paymentInfo(customerId);
+    
     
     }
+    backToCard():void{
+  
 
   }
+}
 
 
 

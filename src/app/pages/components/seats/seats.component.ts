@@ -35,7 +35,7 @@ export class SeatsComponent implements OnInit{
   constructor( private userService: UserService, private router: Router, private route:ActivatedRoute){}
 
   ngOnInit(): void {
-
+  this.cardSeats = this.userService.seatsInCard;
     this.eventId = parseInt(this.route.snapshot.paramMap.get('id'));
     
     console.log(this.eventId)
@@ -54,7 +54,7 @@ listSeats(eid:number):void{
   })}
 
   seatsInCard(seat:Seats):void{
-  
+
    if(this.cardSeats.find(cardseat => cardseat.seatNumber === seat.seatNumber)?.seatID === seat.seatID){
     alert("already in card")
    }else{this.cardSeats.push(seat);
@@ -63,6 +63,10 @@ listSeats(eid:number):void{
     
      this.cardPlus(seat);
    }
+   this.userService.seatsInCard = this.cardSeats;
+   this.userService.eventId = this.eventId ;
+   this.userService.totalAmt= this.totalAmt;
+   this.userService.totalTickets = this.totalTickets;
   }
   
   DeleteSeatFromCard(seatNumber:string ):void{
@@ -70,7 +74,11 @@ listSeats(eid:number):void{
     this.totalTickets -=1;
 
     this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
- 
+
+    this.userService.seatsInCard = this.cardSeats;
+    this.userService.eventId = this.eventId ;
+    this.userService.totalAmt= this.totalAmt;
+    this.userService.totalTickets = this.totalTickets;
 }
 cardPlus(seat:Seats):void{
  
