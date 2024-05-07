@@ -50,7 +50,7 @@ listSeats(eid:number):void{
   this.userService.seatList(eid).subscribe((listOfseat: Seats[])=>{
     console.log(listOfseat);
       this.seatList = listOfseat;
-      alert(this.customerId)
+      //alert(this.customerId)
   })}
 
   seatsInCard(seat:Seats):void{
@@ -78,10 +78,6 @@ cardPlus(seat:Seats):void{
     this.totalTickets +=1;
    
 }
-disableButton(event: MouseEvent): boolean {
-  const button = event.target as HTMLButtonElement;
-  button.disabled = true;
-  return button.disabled;
-}
+
 
 }

@@ -20,6 +20,7 @@ export class UserService {
   seatsByEventIdApi: string = 'http://localhost:8081/api/v1/seat/event'
   savePaymentInfoApi: string = 'http://localhost:8081/api/v1/paymentinfo'
   listOfPaymentInfo: string ='http://localhost:8081/api/v1/paymentinfo'
+  deletePaymentInfo: string = 'http://localhost:8081/api/v1/paymentinfo'
 
   custumerId: number;
 
@@ -53,6 +54,9 @@ export class UserService {
 
    paymentInfos(customerId: number):Observable<Paymentinfo[]>{
     return this.http.get<Paymentinfo[]>(this.listOfPaymentInfo.concat("/").concat(customerId + ''), this.httpOptions)
+   }
+   deletePaymentInfoByCustomerIdCardnumber(customerId:number, cardNumber:string): Observable<string>{
+    return this.http.delete<string>(this.deletePaymentInfo.concat('/').concat(customerId + '').concat('/').concat(cardNumber + ''), {responseType: 'text' as 'json'})
    }
 
 }

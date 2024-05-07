@@ -35,25 +35,40 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
     customerId:this.cId
     })
     this.paymentInfo(this.cId)
-    console.log(this.allCardsByCustomer)
+    
      }
   
   savePaymentInfo():void{
-  
-    console.log(this.paymentinfoGroup.value);
+ 
     this.userService.newPaymentInfo(this.paymentinfoGroup.value).subscribe((result:String) =>
       {
         if(result === "payment info saved"){
+          this.allCardsByCustomer.push(this.paymentinfoGroup.value)
           alert("payment saved")
         } else{
             alert("payment info already exist")
         }
       })
+      this.paymentInfo(this.cId);
   }
 
   paymentInfo(customerId):void{
     this.userService.paymentInfos(customerId).subscribe((listOfcardsBycustomer: Paymentinfo[])=> this.allCardsByCustomer = listOfcardsBycustomer)
   }
 
+  deletePaymentMethod(customerId:number, cardNumber: string):void{ 
+    
+    //console.log('this array' + this.allCardsByCustomer);
 
-}
+    this.userService.deletePaymentInfoByCustomerIdCardnumber(customerId, cardNumber).subscribe((result:string)=>
+      
+     this.allCardsByCustomer.splice(this.allCardsByCustomer.findIndex(paymentInfo => paymentInfo.cardNumber = cardNumber),1)
+      )
+      this.paymentInfo(customerId)
+    
+    }
+
+  }
+
+
+

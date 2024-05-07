@@ -22,13 +22,27 @@
         <thead>
             <tr >
                     <th>Card</th>
+                    <th>type</th>
+                    
                    
             </tr>
         </thead>
     
         <tbody> 
             <tr *ngFor = "let card of allCardsByCustomer">
-                    <td>{{card.cardNumber}}</td>
+                    <td>
+                        {{card.cardNumber}}
+                    </td>
+                    <td>
+                        {{card.paymentType}}
+                    </td>
+                    <td> 
+                        <button class="button">Use this as payment</button>
+                    </td>
+                    <td>
+                        <button class="button" (click)="deletePaymentMethod(cId,card.cardNumber)">Delete item</button>
+                    </td>
+                
                
             </tr>
         </tbody>
