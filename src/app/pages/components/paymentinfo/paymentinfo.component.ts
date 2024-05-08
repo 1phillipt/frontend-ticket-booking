@@ -10,6 +10,7 @@ import { Paymentinfo } from '../../models/paymentinfo';
 import { CommonModule } from '@angular/common';
 import { Seats } from '../../models/seats';
 import { Ticket } from '../../models/ticket';
+import { Confirmation } from '../../models/confirmation';
 
 
 @Component({
@@ -31,6 +32,11 @@ paymentInfoId: number;
 allCardsByCustomer: Paymentinfo[] = []
 
 seatsInCard: Seats[]= [];
+customerTickets:Ticket [] = [];
+
+seatNumber: string;
+
+
 
 
 
@@ -43,7 +49,7 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
     this.totalAmount = this.userService.totalAmt;
     this.totalTickets =this.userService.totalTickets;
 
-
+   
 
     this.paymentinfoGroup =this.formBuilder.group({
     cardNumber: ['' ,Validators.required],
@@ -82,6 +88,7 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
       )
       this.paymentInfo(customerId);
     }
+
     async saveTicket(paymentInfoId: number): Promise<void> {
       this.paymentInfoId = paymentInfoId;
       console.log(this.userService.customerId); // Typo: Corrected variable name
@@ -95,8 +102,29 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
         };
         this.userService.customerTickets.push(ticket);
         await this.userService.saveCustomerTicket(ticket).toPromise();
+        
+       // this.userService.saveConfirmation();
+      }
+      await this.getTicketByEventIdAndseatNumber()
+    }
+    async getTicketByEventIdAndseatNumber(): Promise<void> {
+      for (const seat of this.seatsInCard) {
+        this.seatNumber = seat.seatNumber
+        try {
+          const customerTicket = await this.userService.getTicketInfoByEventIdAndseatNumber(this.eventId,this.seatNumber).toPromise();
+          console.log(seat.seatNumber);
+          this.customerTickets.push(customerTicket);
+          this.userService.customerTicket = this.customerTickets;
+          console.log(this.customerTickets);
+        } catch (error) {
+          console.error('Error fetching ticket:', error);
+        }
+
       }
     }
+    
+ 
+    
     
 }
 

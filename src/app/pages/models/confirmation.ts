@@ -1,5 +1,5 @@
 export interface Confirmation {
-    confirmationDate: Date;
+    confirmationDateAndTime: Date;
     customerId: number;
     ticketId:number;
 }
