@@ -72,8 +72,6 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
      this.allCardsByCustomer.splice(this.allCardsByCustomer.findIndex(paymentInfo => paymentInfo.cardNumber = cardNumber),1)
       )
       this.paymentInfo(customerId);
-    
-    
     }
     backToCard():void{
   

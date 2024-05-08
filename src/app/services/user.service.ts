@@ -8,6 +8,7 @@ import { Signup } from '../pages/models/Signup';
 import { Events } from '../pages/models/Events';
 import { Seats } from '../pages/models/seats';
 import { Paymentinfo } from '../pages/models/paymentinfo';
+import { Ticket } from '../pages/models/ticket';
 
 
 @Injectable({
@@ -21,12 +22,19 @@ export class UserService {
   savePaymentInfoApi: string = 'http://localhost:8081/api/v1/paymentinfo'
   listOfPaymentInfo: string ='http://localhost:8081/api/v1/paymentinfo'
   deletePaymentInfo: string = 'http://localhost:8081/api/v1/paymentinfo'
+  saveTicket: string = 'http://localhost:8081/api/v1/ticket'
+  confirmationInfo: string = 'http://localhost:8081/api/v1/paymentinfo'
+
 
   custumerId: number;
   seatsInCard: Seats[]= [];
-  eventId: number;
-  totalAmt: number;
-  totalTickets:number;
+  eventId: number=0;
+  totalAmt: number=0;
+  totalTickets:number=0;
+
+  paymentMethodId: number;
+  
+  customerTicket: Ticket;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -62,5 +70,10 @@ export class UserService {
    deletePaymentInfoByCustomerIdCardnumber(customerId:number, cardNumber:string): Observable<string>{
     return this.http.delete<string>(this.deletePaymentInfo.concat('/').concat(customerId + '').concat('/').concat(cardNumber + ''), {responseType: 'text' as 'json'})
    }
+   saveCustomerTicket(ticket:Ticket):Observable<string>{
+
+    return this.http.post<string>(this.saveTicket,ticket,{responseType: 'text' as 'json'})
+   }
+  
 
 }

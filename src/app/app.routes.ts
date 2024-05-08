@@ -4,6 +4,7 @@ import { SignupComponent } from './pages/components/signup/signup.component';
 import { EventsComponent } from './pages/components/events/events.component';
 import { SeatsComponent } from './pages/components/seats/seats.component';
 import { PaymentinfoComponent } from './pages/components/paymentinfo/paymentinfo.component';
+import { TicketsInfoAndConfirmationComponent } from './pages/components/tickets-info-and-confirmation/tickets-info-and-confirmation.component';
 
 export const routes: Routes = [
     {path: '',component:LoginComponent},
@@ -11,5 +12,6 @@ export const routes: Routes = [
     {path: 'events', component: EventsComponent},
     {path:'seats', component:SeatsComponent},
     {path:'event/:id', component:SeatsComponent},
-    {path:'paymentinfo/:customerId', component:PaymentinfoComponent}
+    {path:'paymentinfo/:customerId', component:PaymentinfoComponent},
+    {path:'payandConfirm',component:TicketsInfoAndConfirmationComponent}
 ];

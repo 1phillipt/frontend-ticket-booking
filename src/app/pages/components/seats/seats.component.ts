@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EventsComponent } from '../events/events.component';
 import { CommonModule } from '@angular/common';
+import { Ticket } from '../../models/ticket';
 
 @Component({
   selector: 'app-seats',
@@ -23,7 +24,9 @@ export class SeatsComponent implements OnInit{
   cardSeats: Seats[]= [];
   eventId: number;
   customerId: number;
-  
+
+
+
 
   inCard: boolean =false;
 
@@ -36,13 +39,18 @@ export class SeatsComponent implements OnInit{
 
   ngOnInit(): void {
   this.cardSeats = this.userService.seatsInCard;
+  this.totalAmt = this.userService.totalAmt;
+  this.totalTickets = this.userService.totalTickets;
+
     this.eventId = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.userService.eventId = this.eventId;
     
     console.log(this.eventId)
 
     this.customerId = this.userService.custumerId;
     
     this.listSeats(this.eventId);
+    
     
     
   }
@@ -85,6 +93,10 @@ cardPlus(seat:Seats):void{
     this.totalAmt += seat.price;
     this.totalTickets +=1;
    
+}
+
+ticketsAndconfirmation():void{
+
 }
 
 
