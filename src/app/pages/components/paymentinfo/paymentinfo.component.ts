@@ -9,6 +9,7 @@ import { LoginComponent } from '../login/login.component';
 import { Paymentinfo } from '../../models/paymentinfo';
 import { CommonModule } from '@angular/common';
 import { Seats } from '../../models/seats';
+import { Ticket } from '../../models/ticket';
 
 
 @Component({
@@ -20,26 +21,34 @@ import { Seats } from '../../models/seats';
 })
 export class PaymentinfoComponent implements OnInit{
 
-
-cId:number =this.userService.custumerId;
-eventId:number = this.userService.eventId;
-totalAmount: number = this.userService.totalAmt;
-totalTickets: number =this.userService.totalTickets;
+paymentinfoGroup: FormGroup;
+cId:number;
+eventId:number;
+totalAmount: number;
+totalTickets: number;
+paymentInfoId: number;
 
 allCardsByCustomer: Paymentinfo[] = []
 
 seatsInCard: Seats[]= [];
 
-paymentinfoGroup: FormGroup;
-  customerId: any;
+
+
 
 constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,private route: ActivatedRoute){}
 
   ngOnInit(): void {
+    this.cId =this.userService.customerId;
+    this.eventId = this.userService.eventId;
+    this.totalAmount = this.userService.totalAmt;
+    this.totalTickets =this.userService.totalTickets;
+
+
+
     this.paymentinfoGroup =this.formBuilder.group({
     cardNumber: ['' ,Validators.required],
     paymentType: ['',Validators.required],
-    customerId:this.cId
+    customerId:this.userService.customerId
     })
     this.paymentInfo(this.cId)
     this.seatsInCard = this.userService.seatsInCard;
@@ -60,12 +69,12 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
   }
 
   paymentInfo(customerId):void{
-    this.userService.paymentInfos(customerId).subscribe((listOfcardsBycustomer: Paymentinfo[])=> this.allCardsByCustomer = listOfcardsBycustomer)
+    this.userService.paymentInfos(customerId).subscribe((listOfcardsBycustomer: Paymentinfo[])=> this.allCardsByCustomer = listOfcardsBycustomer);
+    
   }
 
   deletePaymentMethod(customerId:number, cardNumber: string):void{ 
     
-    //console.log('this array' + this.allCardsByCustomer);
 
     this.userService.deletePaymentInfoByCustomerIdCardnumber(customerId, cardNumber).subscribe((result:string)=>
       
@@ -73,10 +82,22 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
       )
       this.paymentInfo(customerId);
     }
-    backToCard():void{
-  
-
-  }
+    async saveTicket(paymentInfoId: number): Promise<void> {
+      this.paymentInfoId = paymentInfoId;
+      console.log(this.userService.customerId); // Typo: Corrected variable name
+    
+      for (const seat of this.seatsInCard) {
+        const ticket = {
+          customerId: this.userService.customerId, // Corrected variable name
+          eventId: this.eventId, // Assuming eventId is a property of the component
+          paymentInfoId: this.paymentInfoId,
+          seatNumber: seat.seatNumber
+        };
+        this.userService.customerTickets.push(ticket);
+        await this.userService.saveCustomerTicket(ticket).toPromise();
+      }
+    }
+    
 }
 
 

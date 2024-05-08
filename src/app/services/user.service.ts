@@ -9,6 +9,7 @@ import { Events } from '../pages/models/Events';
 import { Seats } from '../pages/models/seats';
 import { Paymentinfo } from '../pages/models/paymentinfo';
 import { Ticket } from '../pages/models/ticket';
+import { tick } from '@angular/core/testing';
 
 
 @Injectable({
@@ -26,13 +27,14 @@ export class UserService {
   confirmationInfo: string = 'http://localhost:8081/api/v1/paymentinfo'
 
 
-  custumerId: number;
+  customerId: number;
   seatsInCard: Seats[]= [];
+  customerTickets: Ticket[]=[]
   eventId: number=0;
   totalAmt: number=0;
   totalTickets:number=0;
 
-  paymentMethodId: number;
+  paymentInfoId: number;
   
   customerTicket: Ticket;
 
@@ -70,8 +72,8 @@ export class UserService {
    deletePaymentInfoByCustomerIdCardnumber(customerId:number, cardNumber:string): Observable<string>{
     return this.http.delete<string>(this.deletePaymentInfo.concat('/').concat(customerId + '').concat('/').concat(cardNumber + ''), {responseType: 'text' as 'json'})
    }
-   saveCustomerTicket(ticket:Ticket):Observable<string>{
-
+   saveCustomerTicket(ticket: Ticket):Observable<string>{
+    console.log(ticket);
     return this.http.post<string>(this.saveTicket,ticket,{responseType: 'text' as 'json'})
    }
   

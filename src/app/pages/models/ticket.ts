@@ -1,6 +1,6 @@
 export interface Ticket {
     "eventId": number;
     "customerId": number;
-    "seatId": number;
+    "seatNumber": string;
     "paymentInfoId": number;
 }

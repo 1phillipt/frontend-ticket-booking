@@ -47,7 +47,7 @@ export class SeatsComponent implements OnInit{
     
     console.log(this.eventId)
 
-    this.customerId = this.userService.custumerId;
+    this.customerId = this.userService.customerId;
     
     this.listSeats(this.eventId);
     

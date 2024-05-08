@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
        }else{
         alert("signin success")
         this.cId = cusId;
-        this.userService.custumerId = this.cId;
+        this.userService.customerId = this.cId;
         this.router.navigate(['events']);
        }  
       }
