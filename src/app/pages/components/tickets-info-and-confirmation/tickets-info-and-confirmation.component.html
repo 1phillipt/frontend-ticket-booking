@@ -1,4 +1,69 @@
-<div >
+<div>
+    <div>
+        Your recent purchase -
+    </div>
+    <table style ="border: 1px solid black; width:80%">
+     <thead>
+         <tr>
+                 <th>Seat number</th>
+                 <th>price</th>
+                 <th>available</th>
+                
+               
+                
+         </tr>
+     </thead>
+  
+     <tbody> 
+         <tr *ngFor ="let seat of cusSeats">
+            <td>{{seat.seatNumber}}</td>
+            <td>{{seat.price}}</td>
+            <td>{{seat.available}}</td>
+         </tr>
+     </tbody>
+     
+ </table><br><br>
+ <div>
+    <div>
+        Your purchase history -
+    </div>
+    <div>
+        <table style ="border: 1px solid black; width:80%">
+         <thead>
+             <tr>
+                     <th>Customer</th>
+                     <th>event Id</th>
+                     <th>seat</th>
+                     <th>payment Id</th>
+                     <th>Total payment</th>
+                 
+                    
+             </tr>
+         </thead>
+     
+         <tbody> 
+             <tr *ngFor ="let ticket of customerTickets">
+                <td>{{ticket.customerId}}</td>
+                <td>{{ticket.eventId}}</td>
+                <td>{{ticket.seatNumber}}</td>
+                <td>{{ticket.paymentInfoId}}</td>
+                <td>{{totalAmt}}</td>
+                
+                     
+             </tr>
+         </tbody>
+         
+     </table><br><br>
+     <div>
+    <div>
+        <button class="button" (click)="eventMenu()" >Print and event menu</button>
+    </div> 
+
+
+
+
+
+<!-- <div (ngSubmit)="ngOnInit()">
     <div>
         Your payment reciept
     </div>
@@ -9,17 +74,14 @@
                  <th>Total seats</th>
                  <th>Seat number</th>
                  <th>Total amount paid</th>
-                 <th>Paid With</th>
+                 <th>Paid Id</th>
          </tr>
      </thead>
  
      <tbody> 
-         <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
+        <tr *ngFor ="let ticket of customerTickets">
+        
+        
          </tr>
       
      </tbody>
@@ -59,4 +121,4 @@
 </div>
     <div>
         <button>Print recipt and exit</button>
-    </div>
+    </div> -->

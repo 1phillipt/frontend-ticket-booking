@@ -45,6 +45,7 @@ export class UserService {
       'Content-Type': 'application/json'
     })
   }
+  seatNumber: string []=[]
   constructor(private http: HttpClient) {}
 
 //login for a customer
@@ -75,7 +76,7 @@ export class UserService {
     return this.http.delete<string>(this.deletePaymentInfo.concat('/').concat(customerId + '').concat('/').concat(cardNumber + ''), {responseType: 'text' as 'json'})
    }
    saveCustomerTicket(ticket: Ticket):Observable<string>{
-    console.log(ticket);
+
     return this.http.post<string>(this.saveTicket,ticket,{responseType: 'text' as 'json'})
    }
    saveConfirmation(confirmation: Confirmation):Observable<string>{

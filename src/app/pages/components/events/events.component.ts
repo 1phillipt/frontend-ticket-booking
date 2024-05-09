@@ -25,9 +25,7 @@ constomerId:number;
   ngOnInit(): void {
 
     this.constomerId = parseInt(this.route.snapshot.paramMap.get('id'));
- 
-
- this.events()
+    this.events()
  
 
   }
@@ -35,7 +33,7 @@ constomerId:number;
   events():void{ 
 
     this.userService.EventsList().subscribe((listOfEvents: Events[])=>{
-      console.log(listOfEvents);
+      //console.log(listOfEvents);
         this.eventList = listOfEvents;  
     }
   

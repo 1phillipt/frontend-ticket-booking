@@ -28,6 +28,7 @@ eventId:number;
 totalAmount: number;
 totalTickets: number;
 paymentInfoId: number;
+ticketId: number;
 
 allCardsByCustomer: Paymentinfo[] = []
 
@@ -91,14 +92,16 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
 
     async saveTicket(paymentInfoId: number): Promise<void> {
       this.paymentInfoId = paymentInfoId;
-      console.log(this.userService.customerId); // Typo: Corrected variable name
+      
     
       for (const seat of this.seatsInCard) {
+        this.userService.seatNumber.push(seat.seatNumber)
         const ticket = {
-          customerId: this.userService.customerId, // Corrected variable name
-          eventId: this.eventId, // Assuming eventId is a property of the component
+          customerId: this.userService.customerId,
+          eventId: this.eventId, 
           paymentInfoId: this.paymentInfoId,
           seatNumber: seat.seatNumber
+          
         };
         this.userService.customerTickets.push(ticket);
         await this.userService.saveCustomerTicket(ticket).toPromise();
@@ -110,17 +113,20 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
     async getTicketByEventIdAndseatNumber(): Promise<void> {
       for (const seat of this.seatsInCard) {
         this.seatNumber = seat.seatNumber
+       
         try {
           const customerTicket = await this.userService.getTicketInfoByEventIdAndseatNumber(this.eventId,this.seatNumber).toPromise();
-          console.log(seat.seatNumber);
+     
           this.customerTickets.push(customerTicket);
-          this.userService.customerTicket = this.customerTickets;
-          console.log(this.customerTickets);
+          this.userService.customerTicket.push(customerTicket);
+          console.log(this.userService.customerTicket)
+
         } catch (error) {
           console.error('Error fetching ticket:', error);
         }
 
       }
+      
     }
     
  

@@ -45,7 +45,7 @@ export class SeatsComponent implements OnInit{
     this.eventId = parseInt(this.route.snapshot.paramMap.get('id'));
     this.userService.eventId = this.eventId;
     
-    console.log(this.eventId)
+    //console.log(this.eventId)
 
     this.customerId = this.userService.customerId;
     
@@ -56,7 +56,7 @@ export class SeatsComponent implements OnInit{
   }
 listSeats(eid:number):void{
   this.userService.seatList(eid).subscribe((listOfseat: Seats[])=>{
-    console.log(listOfseat);
+    //console.log(listOfseat);
       this.seatList = listOfseat;
       //alert(this.customerId)
   })}
