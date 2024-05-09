@@ -1,6 +1,6 @@
 
 <div >
-    <table style ="border: 1px solid black; width:80%">
+   <table class="table table-bordered">
      <thead>
          <tr>
                  <th>Seat ID</th>
@@ -12,12 +12,12 @@
  
      <tbody> 
          <tr *ngFor ="let seat of seatList">
-                 <td>{{seat.seatID}}</td>
-                 <td>{{seat.seatNumber}}</td>
-                 <td>{{seat.price}}</td>
-                 <td>{{seat.available}}</td>
-                 <td>
-                     <button class="button" (click)="seatsInCard(seat)" >Add to card</button>
+                 <td scope="col">{{seat.seatID}}</td>
+                 <td scope="col">{{seat.seatNumber}}</td>
+                 <td scope="col">{{seat.price}}</td>
+                 <td scope="col">{{seat.available}}</td>
+                 <td scope="col">
+                     <button class="btn btn-primary" (click)="seatsInCard(seat)" >Add to card</button>
                  </td>
  
          </tr>
@@ -27,13 +27,13 @@
     <button class="text" style="margin-right: 75%;" >My Card</button>
  </div>
  <div >
-    <table style ="border: 1px solid black; width:80%">
+    <table class="table">
      <thead>
          <tr>
-                 <th>Seat ID</th>
-                 <th>Seat Number</th>
-                 <th>Price</th>
-                 <th>Available</th>
+                 <th scope="col">Seat ID</th>
+                 <th scope="col">Seat Number</th>
+                 <th scope="col">Price</th>
+                 <th scope="col">Available</th>
          </tr>
      </thead>
  
@@ -44,7 +44,7 @@
                  <td>{{seat.price}}</td>
                  <td>{{seat.available}}</td>
                  <td>
-                     <button class="button" (click)="DeleteSeatFromCard(seat.seatNumber)" >Delete item</button>
+                     <button class="btn btn-danger" (click)="DeleteSeatFromCard(seat.seatNumber)" >Delete item</button>
                  </td>
          </tr>
      </tbody>
@@ -55,7 +55,7 @@
         <button class="text" style="margin-right: 75%;" >Your Total</button>
      </div>
     <div >
-        <table style ="border: 1px solid black; width:80%">
+        <table style ="border: 1px solid black; width:100%">
          <thead>
              <tr>
                      <th>Total tickets</th>
@@ -72,7 +72,7 @@
                      <td>{{totalAmt}}</td>
                      
                      <td>
-                         <button routerLink="/paymentinfo/{{customerId}}">Procced to checkout</button>
+                         <button  class="btn btn-primary"  routerLink="/paymentinfo/{{customerId}}">Procced to checkout</button>
                      </td>
              </tr>
          </tbody>

@@ -28,8 +28,8 @@
         Your purchase history -
     </div>
     <div>
-        <table style ="border: 1px solid black; width:80%">
-         <thead>
+        <table class="table table-bordered border-primary">
+         <thead  class="table-light">
              <tr>
                         <th>Ticket Id</th>
                      <th>Customer Id</th>
@@ -58,66 +58,3 @@
         <button class="button" (click)="eventMenu()">Print and event menu</button>
     </div> 
 
-
-
-
-
-<!-- <div (ngSubmit)="ngOnInit()">
-    <div>
-        Your payment reciept
-    </div>
-    <table style ="border: 1px solid black; width:80%">
-     <thead>
-         <tr>   
-            <th> TicketId Number</th>
-                 <th>Total seats</th>
-                 <th>Seat number</th>
-                 <th>Total amount paid</th>
-                 <th>Paid Id</th>
-         </tr>
-     </thead>
- 
-     <tbody> 
-        <tr *ngFor ="let ticket of customerTickets">
-        
-        
-         </tr>
-      
-     </tbody>
-    </table>
-</div>
-<div>
-<div> confirmation </div>
-<table style ="border: 1px solid black; width:80%">
-    <thead>
-        <tr >
-                <th>Confirmation Number</th>
-                <th>Confirmation Date</th>
-                <th>Costumer Name</th>
-                <th>Customer Id</th>
-                
-               
-        </tr>
-    </thead>
-
-    <tbody> 
-        <tr>
-                <td></td>
-              
-                <td></td>
-             
-                    <td></td>
-                 
-                    
-                <td></td>
-        
-             
-            
-        </tr>
-    </tbody>
-    
-</table>
-</div>
-    <div>
-        <button>Print recipt and exit</button>
-    </div> -->

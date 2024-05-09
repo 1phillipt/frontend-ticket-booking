@@ -1,6 +1,5 @@
 
-    <div>
-
+    <div class="container">
         <form [formGroup]="paymentinfoGroup" (ngSubmit)="savePaymentInfo()">
             <label>Add new payment</label> <br><br>
             <label for="cardNumber">Card number</label>
@@ -13,16 +12,15 @@
             <input type="radio" id="creditCard" value="creditCard" formControlName="paymentType">
             <label for="creditCard">Credit Card</label><br><br>
     
-            
-                 <button type ="submit" >submit</button>
+                 <button class="btn btn-primary"  type ="submit" >submit</button>
     
         </form>
     </div>
-    <div >
+    <div class="container">
         <div>
             Card Items
         </div>
-        <table style ="border: 1px solid black; width:80%">
+        <table style ="border: 1px solid black; width:100%">
          <thead>
              <tr>
                      <th>Total seats</th>
@@ -35,7 +33,7 @@
                     <td>{{totalTickets}}</td>
                     <td>{{totalAmount}}</td>
                      <td>
-                        <button routerLink="/event/{{eventId}}">Edit Card</button>
+                        <button class="btn btn-danger"  routerLink="/event/{{eventId}}">Edit Card</button>
                      </td>
                     
              </tr>
@@ -43,8 +41,8 @@
          </tbody>
         </table>
     </div>
-    <div> Payment information</div>
-    <table style ="border: 1px solid black; width:80%">
+    <div class="container"> Payment information
+    <table style ="border: 1px solid black; width:100%">
         <thead>
             <tr >
                     <th>Card</th>
@@ -73,6 +71,6 @@
                
             </tr>
         </tbody>
-        
+
     </table>
-        
+         </div>

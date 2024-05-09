@@ -1,5 +1,5 @@
-<div >
-   <table style ="border: 1px solid black; width:80%">
+<div class ="table-responsive m-3" >
+   <table class="table tbale-striped">
     <thead>
         <tr>
                 <th>Event</th>
@@ -19,7 +19,7 @@
                 <td>{{event.name}}</td>
                 <td>{{event.venueName}}</td>
                 <td>
-                    <button routerLink="/event/{{event.eventId}}">Find Seats</button>
+                    <button class="btn btn-primary" routerLink="/event/{{event.eventId}}">Find Seats</button>
                 </td>
 
         </tr>
