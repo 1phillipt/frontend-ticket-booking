@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Seats } from '../../models/seats';
 import { Ticket } from '../../models/ticket';
 import { Confirmation } from '../../models/confirmation';
+import { Tickets } from '../../models/tickets';
 
 
 @Component({
@@ -29,6 +30,7 @@ totalAmount: number;
 totalTickets: number;
 paymentInfoId: number;
 ticketId: number;
+customerId:number;
 
 allCardsByCustomer: Paymentinfo[] = []
 
@@ -37,7 +39,7 @@ customerTickets:Ticket [] = [];
 
 seatNumber: string;
 
-
+purchaseHistoryByCustomerId:Tickets[] =[]
 
 
 
@@ -49,7 +51,8 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
     this.eventId = this.userService.eventId;
     this.totalAmount = this.userService.totalAmt;
     this.totalTickets =this.userService.totalTickets;
-
+    
+    this.customerId =this.userService.customerId
    
 
     this.paymentinfoGroup =this.formBuilder.group({
@@ -105,10 +108,10 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
         };
         this.userService.customerTickets.push(ticket);
         await this.userService.saveCustomerTicket(ticket).toPromise();
-        
-       // this.userService.saveConfirmation();
+       
       }
-      await this.getTicketByEventIdAndseatNumber()
+      await this.getTicketByEventIdAndseatNumber();
+      //await this.getTicketInfoByCustomerId(this.customerId);
     }
     async getTicketByEventIdAndseatNumber(): Promise<void> {
       for (const seat of this.seatsInCard) {
@@ -119,18 +122,30 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
      
           this.customerTickets.push(customerTicket);
           this.userService.customerTicket.push(customerTicket);
-          console.log(this.userService.customerTicket)
+         // console.log(this.userService.customerTicket)
 
         } catch (error) {
           console.error('Error fetching ticket:', error);
         }
 
       }
-      
     }
-    
- 
-    
+    // async getTicketInfoByCustomerId(customerId:number){
+    //   console.log(customerId)
+    //   try {
+    //     const historyPurchase = await this.userService.getTicketInfoByCustomerId(customerId).toPromise();
+
+    //     for (const ticket of historyPurchase) {
+    //       // Push individual tickets into the array
+    //       this.purchaseHistoryByCustomerId.push(ticket);
+    //       this.userService.purchaseHistoryByCustomerId.push(ticket);
+    //   }
+    //  console.log(this.userService.purchaseHistoryByCustomerId.lastIndexOf);
+    //   } catch (error) {
+    //     console.error('Error fetching ticket:', error);
+    //   }
+   
+    // }
     
 }
 

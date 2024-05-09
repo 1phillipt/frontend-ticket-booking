@@ -11,6 +11,7 @@ import { Paymentinfo } from '../pages/models/paymentinfo';
 import { Ticket } from '../pages/models/ticket';
 import { tick } from '@angular/core/testing';
 import { Confirmation } from '../pages/models/confirmation';
+import { Tickets } from '../pages/models/tickets';
 
 
 @Injectable({
@@ -27,6 +28,7 @@ export class UserService {
   saveTicket: string = 'http://localhost:8081/api/v1/ticket'
   saveConfirmationinfo: string = 'http://localhost:8081/api/v1/confirmation'
   getTicket: string = 'http://localhost:8081/api/v1/ticket'
+  getTicketByCustomerId:string ='http://localhost:8081/api/v1/ticket'
 
 
   customerId: number;
@@ -37,7 +39,7 @@ export class UserService {
   totalTickets:number=0;
 
   paymentInfoId: number;
-  
+  purchaseHistoryByCustomerId:Tickets[]= [];
   customerTicket: Ticket [] = [];
 
   httpOptions = {
@@ -85,6 +87,9 @@ export class UserService {
    }
    getTicketInfoByEventIdAndseatNumber(eventId: number, seatNumber:string):Observable<Ticket>{
     return this.http.get<Ticket>(this.getTicket.concat("/").concat(eventId + '').concat("/").concat(seatNumber), {responseType: 'text' as 'json'})
+   }   
+   getTicketInfoByCustomerId(custmoerId:number):Observable<Tickets[]>{
+    return this.http.get<Tickets[]>(this.getTicketByCustomerId.concat("/").concat(custmoerId + ''),this.httpOptions)
    }
 
 }
