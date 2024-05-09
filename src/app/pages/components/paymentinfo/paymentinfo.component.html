@@ -6,14 +6,15 @@
             <label for="cardNumber">Card number</label>
             <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="Card number"> <br><br>
             
-            <label>Payment Options</label> <br>
-            <input type="radio" id="debitCard" value="Debit Card" formControlName="paymentType">
-            <label for="debitCard">Debit Card</label><br>
-
-    
-            <input type="radio" id="creditCard" value="credit Card" formControlName="paymentType">
-            <label for="creditCard">Credit Card</label><br><br>
-            
+            <form [formGroup]="paymentinfoGroup">
+                <label>Payment Options</label> <br>
+                <input type="radio" id="debitCard" value="Debit Card" formControlName="paymentType" name="paymentType">
+                <label for="debitCard">Debit Card</label><br>
+                
+                <input type="radio" id="creditCard" value="Credit Card" formControlName="paymentType" name="paymentType">
+                <label for="creditCard">Credit Card</label><br><br>
+            </form>
+        
                  <button class="btn btn-primary"  type ="submit" >submit</button>
     
         </form>
@@ -63,11 +64,11 @@
                         {{card.paymentType}}
                     </td>
                     <td> 
-                        <button class="btn btn-danger"(click)="deletePaymentMethod(cId,card.cardNumber)">Delete this Payment Method</button>
+                        <button class="btn btn-danger"(click)="deletePaymentMethod(cId,card.cardNumber)">Delete Card</button>
                         
                     </td>
                     <td>
-                        <button class="btn btn-primary" (click)="saveTicket(card.paymentInfoId)" routerLink="/payandConfirm">Use and buy</button>
+                        <button class="btn btn-primary" (click)="saveTicket(card.paymentInfoId)" routerLink="/payandConfirm">Use and Pay</button>
                     </td>
                 
                
