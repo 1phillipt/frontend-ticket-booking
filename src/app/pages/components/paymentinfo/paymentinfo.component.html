@@ -1,23 +1,25 @@
 
     <div class="container">
+        <div class="container">
         <form [formGroup]="paymentinfoGroup" (ngSubmit)="savePaymentInfo()">
-            <label>Add new payment</label> <br><br>
+            <label>Add new payment</label> <br>
             <label for="cardNumber">Card number</label>
             <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="Card number"> <br><br>
             
             <label>Payment Options</label> <br>
-            <input type="radio" id="debitCard" value="debitCard" formControlName="paymentType">
-            <label for="debitCard">Debit Card</label>
-            
-            <input type="radio" id="creditCard" value="creditCard" formControlName="paymentType">
-            <label for="creditCard">Credit Card</label><br><br>
+            <input type="radio" id="debitCard" value="Debit Card" formControlName="paymentType">
+            <label for="debitCard">Debit Card</label><br>
+
     
+            <input type="radio" id="creditCard" value="credit Card" formControlName="paymentType">
+            <label for="creditCard">Credit Card</label><br><br>
+            
                  <button class="btn btn-primary"  type ="submit" >submit</button>
     
         </form>
     </div>
     <div class="container">
-        <div>
+        <div><br><br>
             Card Items
         </div>
         <table style ="border: 1px solid black; width:100%">
@@ -40,9 +42,9 @@
           
          </tbody>
         </table>
-    </div>
+    </div><br><br>
     <div class="container"> Payment information
-    <table style ="border: 1px solid black; width:100%">
+    <table class ="table-light"  style ="border: 1px solid black; width:100%">
         <thead>
             <tr >
                     <th>Card</th>
@@ -61,11 +63,11 @@
                         {{card.paymentType}}
                     </td>
                     <td> 
-                        <button class="button" (click)="deletePaymentMethod(cId,card.cardNumber)">Delete this Payment Method</button>
+                        <button class="btn btn-danger"(click)="deletePaymentMethod(cId,card.cardNumber)">Delete this Payment Method</button>
                         
                     </td>
                     <td>
-                        <button class="button" (click)="saveTicket(card.paymentInfoId)" routerLink="/payandConfirm">Use and buy</button>
+                        <button class="btn btn-primary" (click)="saveTicket(card.paymentInfoId)" routerLink="/payandConfirm">Use and buy</button>
                     </td>
                 
                
@@ -74,3 +76,4 @@
 
     </table>
          </div>
+        </div>

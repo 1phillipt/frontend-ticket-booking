@@ -28,24 +28,49 @@ export class LoginComponent implements OnInit {
       password:['',Validators.required]
      });
   }
+
   login(): void {
-    const logindata = this.loginForm.value;
-  
-    this.userService.login(logindata).subscribe(
-      (cusId: number| null) => {
-        this.cId = cusId;
-        alert(this.cId)
-       if(cusId == null){
-        alert("please check email and password and try logging in again")
-       }else{
-        alert("signin success")
-        this.cId = cusId;
-        this.userService.customerId = this.cId;
-        this.router.navigate(['events']);
-       }  
+    const loginData = this.loginForm.value;
+    this.userService.login(loginData).subscribe(
+      (cusId: number | null) => {
+        if (cusId == null) {
+          console.log("Please check email and password and try logging in again");
+        } else {
+          alert("Sign-in success");
+          this.userService.customerId = cusId;
+          this.router.navigate(['events']);
+        }
+      }, 
+      error => {
+       
+        alert("Login failed, please check your email and password");
       }
     );
   }
+  
+  // login(): void {
+  //   const logindata = this.loginForm.value;
+
+    
+  //     this.userService.login(logindata).subscribe(
+  //     (cusId: number| null) => {
+  //       this.cId = cusId;
+  //       console.log(this.cId)
+  //      if(cusId == null){
+  //       console.log("please check email and password and try logging in again")
+  //      }else{
+  //       alert("signin success")
+  //       this.cId = cusId;
+  //       this.userService.customerId = this.cId;
+  //       this.router.navigate(['events']);
+    
+  //       }
+  //      }, error: (error) => {
+  //         alert(error.message);
+  //     }
+  //   );
+ 
+  // }
 }
 
 

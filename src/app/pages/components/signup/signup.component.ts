@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit{
     lname: ['', Validators.required],
     phoneNumber: ['', Validators.required],
     email: ['', Validators.required],
-    password: ['', Validators.required]
+    password: ['', Validators.required] 
     })
   }
   signup(): void{
@@ -38,6 +38,9 @@ export class SignupComponent implements OnInit{
           alert("signup successful, you can login now")
           this.router.navigate(['']);
         }
+        },error => {
+   
+        alert("Login failed, please email and password(should be length of atleast 6");
       });
   }
 
