@@ -12,12 +12,15 @@ import { Seats } from '../../models/seats';
 import { Ticket } from '../../models/ticket';
 import { Confirmation } from '../../models/confirmation';
 import { Tickets } from '../../models/tickets';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-paymentinfo',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule,ConfirmDialogModule],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './paymentinfo.component.html',
   styleUrl: './paymentinfo.component.scss'
 })
@@ -44,7 +47,7 @@ purchaseHistoryByCustomerId:Tickets[] =[]
 
 
 
-constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,private route: ActivatedRoute){}
+constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,private route: ActivatedRoute,private confirmationService: ConfirmationService, private messageService: MessageService){}
 
   ngOnInit(): void {
     this.cId =this.userService.customerId;
@@ -84,13 +87,27 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
   }
 
   deletePaymentMethod(customerId:number, cardNumber: string):void{ 
-    
-
-    this.userService.deletePaymentInfoByCustomerIdCardnumber(customerId, cardNumber).subscribe((result:string)=>
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to delete this payment info?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon:"none",
+      rejectIcon:"none",
+      rejectButtonStyleClass:"p-button-text",
+      accept: () => {
+          this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+          this.userService.deletePaymentInfoByCustomerIdCardnumber(customerId, cardNumber).subscribe((result:string)=>
       
      this.allCardsByCustomer.splice(this.allCardsByCustomer.findIndex(paymentInfo => paymentInfo.cardNumber = cardNumber),1)
       )
       this.paymentInfo(customerId);
+      },
+      reject: () => {
+          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+      }
+  });
+  
     }
 
     async saveTicket(paymentInfoId: number): Promise<void> {
@@ -130,23 +147,27 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
 
       }
     }
-    // async getTicketInfoByCustomerId(customerId:number){
-    //   console.log(customerId)
-    //   try {
-    //     const historyPurchase = await this.userService.getTicketInfoByCustomerId(customerId).toPromise();
 
-    //     for (const ticket of historyPurchase) {
-    //       // Push individual tickets into the array
-    //       this.purchaseHistoryByCustomerId.push(ticket);
-    //       this.userService.purchaseHistoryByCustomerId.push(ticket);
-    //   }
-    //  console.log(this.userService.purchaseHistoryByCustomerId.lastIndexOf);
-    //   } catch (error) {
-    //     console.error('Error fetching ticket:', error);
-    //   }
-   
-    // }
-    
+    wantToPurchase():void{
+      this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Buy Now?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        acceptIcon:"none",
+        rejectIcon:"none",
+        rejectButtonStyleClass:"p-button-text",
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Buy now', detail: 'You have accepted' }); 
+            this.router.navigate(['payandConfirm']);
+        },
+        reject: () => {
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
+
+    }
+  
 }
 
 

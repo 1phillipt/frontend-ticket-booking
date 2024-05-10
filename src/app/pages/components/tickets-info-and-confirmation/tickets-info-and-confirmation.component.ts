@@ -8,11 +8,15 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Tickets } from '../../models/tickets';
 import { CustomerInfo } from '../../models/customer-info';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-tickets-info-and-confirmation',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule,ConfirmDialogModule],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './tickets-info-and-confirmation.component.html',
   styleUrl: './tickets-info-and-confirmation.component.scss'
 })
@@ -30,7 +34,7 @@ export class TicketsInfoAndConfirmationComponent implements OnInit {
 
 
 
-constructor(private userService: UserService, private router: Router, private route:ActivatedRoute){}
+constructor(private userService: UserService, private router: Router, private route:ActivatedRoute,private confirmationService: ConfirmationService, private messageService: MessageService){}
 
   ngOnInit(): void {
     this.customerId = this.userService.customerId;
@@ -81,6 +85,26 @@ constructor(private userService: UserService, private router: Router, private ro
     this.userService.getCustomerInfoByCustomerId(customerId).subscribe((customerInfo: CustomerInfo)=>{
       this.customerInfos = customerInfo;
     })
+  }
+  logout() {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to logout?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon:"none",
+      rejectIcon:"none",
+      rejectButtonStyleClass:"p-button-text",
+      accept: () => {
+          this.messageService.add({ severity: 'info', summary: 'Logout', detail: 'You have accepted' }); 
+          this.router.navigate(['']); 
+      },
+      reject: () => {
+          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+      }
+  });
+
+   
   }
  
 }

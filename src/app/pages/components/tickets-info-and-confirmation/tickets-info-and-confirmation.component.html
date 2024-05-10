@@ -1,6 +1,8 @@
 <div class="container">
     <div>
-        <button class="button" routerLink="/profile" >Update profile</button> 
+        <button class="btn btn-primary" routerLink="/profile" >Update profile</button> 
+
+        <button class="btn btn-danger" (click)="logout()" >logout</button> 
     </div> <br>
     <label><strong>My profile</strong></label>
     <table class="table table-dark table-striped-columns">
@@ -72,6 +74,6 @@
      </table><br>
      <div>
     <div>
-        <button class="button" (click)="eventMenu()">Print and event menu</button>
+        <button class="btn btn-primary"  (click)="eventMenu()">Print and event menu</button>
     </div> 
-
+    <p-confirmDialog />

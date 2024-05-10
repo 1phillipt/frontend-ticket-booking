@@ -7,11 +7,16 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EventsComponent } from '../events/events.component';
 import { CommonModule } from '@angular/common';
 import { Ticket } from '../../models/ticket';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-seats',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule, CommonModule,ConfirmDialogModule],
+  providers:[ConfirmationService,MessageService],
   templateUrl: './seats.component.html',
   styleUrl: './seats.component.scss'
 })
@@ -35,7 +40,7 @@ export class SeatsComponent implements OnInit{
 
   targetProducts: Seats[];
 
-  constructor( private userService: UserService, private router: Router, private route:ActivatedRoute){}
+  constructor( private userService: UserService, private router: Router, private route:ActivatedRoute, private confirmationService:ConfirmationService, private messageService:MessageService){}
 
   ngOnInit(): void {
   this.cardSeats = this.userService.seatsInCard;
@@ -78,7 +83,18 @@ listSeats(eid:number):void{
   }
   
   DeleteSeatFromCard(seatNumber:string ):void{
-    this.totalAmt = this.totalAmt - this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
+
+      this.confirmationService.confirm({
+          target: event.target as EventTarget,
+          message: 'Are you sure that you want to proceed?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          acceptIcon:"none",
+          rejectIcon:"none",
+          rejectButtonStyleClass:"p-button-text",
+          accept: () => {
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+              this.totalAmt = this.totalAmt - this.cardSeats.find(cardseat => cardseat.seatNumber === seatNumber)?.price || 0;
     this.totalTickets -=1;
 
     this.cardSeats.splice(this.cardSeats.findIndex(cardseat => cardseat.seatNumber == seatNumber), 1);
@@ -87,6 +103,12 @@ listSeats(eid:number):void{
     this.userService.eventId = this.eventId ;
     this.userService.totalAmt= this.totalAmt;
     this.userService.totalTickets = this.totalTickets;
+    },
+          reject: () => {
+              this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          }
+      });
+    
 }
 cardPlus(seat:Seats):void{
  

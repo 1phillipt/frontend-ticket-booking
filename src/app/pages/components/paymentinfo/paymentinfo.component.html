@@ -70,7 +70,7 @@
                         
                     </td>
                     <td>
-                        <button class="btn btn-primary" (click)="saveTicket(card.paymentInfoId)" routerLink="/payandConfirm">Use and Pay</button>
+                        <button class="btn btn-primary" (click)="saveTicket(card.paymentInfoId)" (click)="wantToPurchase()">Purchase</button>
                     </td>
                 
                
@@ -80,3 +80,4 @@
     </table>
          </div>
         </div>
+        <p-confirmDialog />
