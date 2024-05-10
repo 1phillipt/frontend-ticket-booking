@@ -1,10 +1,15 @@
 import { Component,OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
 import {RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { Events } from '../../models/Events';
+
+import { MessageService } from 'primeng/api';
+
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,6 +19,7 @@ import { Events } from '../../models/Events';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
+  [x: string]: any;
 
   loginForm: FormGroup;
 
@@ -37,12 +43,13 @@ export class LoginComponent implements OnInit {
           console.log("Please check email and password and try logging in again");
         } else {
           alert("Sign-in success");
+         
           this.userService.customerId = cusId;
           this.router.navigate(['events']);
         }
       }, 
       error => {
-       
+  
         alert("Login failed, please check your email and password");
       }
     );

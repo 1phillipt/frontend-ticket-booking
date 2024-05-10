@@ -7,6 +7,7 @@ import { Ticket } from '../../models/ticket';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Tickets } from '../../models/tickets';
+import { CustomerInfo } from '../../models/customer-info';
 
 @Component({
   selector: 'app-tickets-info-and-confirmation',
@@ -24,13 +25,15 @@ export class TicketsInfoAndConfirmationComponent implements OnInit {
   eventId: number;
   cusSeats: Seats[] = [];
   purchaseHistory: Tickets[] =[]
-  customerId:number= 102;
+  customerId:number;
+  customerInfos: CustomerInfo;
 
 
 
 constructor(private userService: UserService, private router: Router, private route:ActivatedRoute){}
 
   ngOnInit(): void {
+    this.customerId = this.userService.customerId;
     this.customerTickets = this.userService.customerTickets;
     this.totalAmt = this.userService.totalAmt;
     this.ttlSeats = this.userService.seatsInCard.length;
@@ -38,6 +41,8 @@ constructor(private userService: UserService, private router: Router, private ro
     this.cusSeats = this.userService.seatsInCard;
     //this.purchaseHistory = this.userService.purchaseHistoryByCustomerId;
     this.getTicketInfoByCustomerId(this.customerId);
+    this.getCustomerInfoByCustomerId(this.customerId);
+    this.userService.customerId = this.customerId
     }
 
   eventMenu():void{
@@ -53,8 +58,7 @@ constructor(private userService: UserService, private router: Router, private ro
     this.ttlSeats =0;
     this.userService.totalTickets=0;
     this.router.navigate(['events']);
-    
-
+  
   }
 
   async getTicketInfoByCustomerId(customerId:number){
@@ -72,6 +76,11 @@ constructor(private userService: UserService, private router: Router, private ro
       console.error('Error fetching ticket:', error);
     }
  
+  }
+  getCustomerInfoByCustomerId(customerId:number){
+    this.userService.getCustomerInfoByCustomerId(customerId).subscribe((customerInfo: CustomerInfo)=>{
+      this.customerInfos = customerInfo;
+    })
   }
  
 }

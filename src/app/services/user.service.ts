@@ -12,6 +12,7 @@ import { Ticket } from '../pages/models/ticket';
 import { tick } from '@angular/core/testing';
 import { Confirmation } from '../pages/models/confirmation';
 import { Tickets } from '../pages/models/tickets';
+import { CustomerInfo } from '../pages/models/customer-info';
 
 
 @Injectable({
@@ -29,7 +30,8 @@ export class UserService {
   saveConfirmationinfo: string = 'http://localhost:8081/api/v1/confirmation'
   getTicket: string = 'http://localhost:8081/api/v1/ticket'
   getTicketByCustomerId:string ='http://localhost:8081/api/v1/ticket'
-
+  getCustomerInfoByCustomerID: string ='http://localhost:8081/api/v1/customer'
+  saveCustomerInfoEdits:string ='http://localhost:8081/api/v1/customer'
 
   customerId: number;
   seatsInCard: Seats[]= [];
@@ -78,11 +80,9 @@ export class UserService {
     return this.http.delete<string>(this.deletePaymentInfo.concat('/').concat(customerId + '').concat('/').concat(cardNumber + ''), {responseType: 'text' as 'json'})
    }
    saveCustomerTicket(ticket: Ticket):Observable<string>{
-
     return this.http.post<string>(this.saveTicket,ticket,{responseType: 'text' as 'json'})
    }
    saveConfirmation(confirmation: Confirmation):Observable<string>{
-
     return this.http.post<string>(this.saveConfirmationinfo,confirmation,{responseType: 'text' as 'json'})
    }
    getTicketInfoByEventIdAndseatNumber(eventId: number, seatNumber:string):Observable<Ticket>{
@@ -91,5 +91,12 @@ export class UserService {
    getTicketInfoByCustomerId(custmoerId:number):Observable<Tickets[]>{
     return this.http.get<Tickets[]>(this.getTicketByCustomerId.concat("/").concat(custmoerId + ''),this.httpOptions)
    }
+   getCustomerInfoByCustomerId(customerId:number):Observable<CustomerInfo>{
+    return this.http.get<CustomerInfo>(this.getCustomerInfoByCustomerID.concat("/").concat(customerId + ''),this.httpOptions)
+   }
+   saveCustomerProfile(customerId:number, customerInfo:CustomerInfo):Observable<string>{
+    return this.http.patch<string>(this.saveCustomerInfoEdits.concat("/").concat(customerId + ''),customerInfo, {responseType: 'text' as 'json'})
+   }
+
 
 }

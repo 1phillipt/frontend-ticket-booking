@@ -3,7 +3,8 @@
         <div class="container">
         <form [formGroup]="paymentinfoGroup" (ngSubmit)="savePaymentInfo()">
             <label>Add new payment</label> <br>
-            <label for="cardNumber">Card number</label>
+            <label for="cardNumber">Card number</label> <br>
+
             <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="Card number"> <br><br>
             
             <form [formGroup]="paymentinfoGroup">

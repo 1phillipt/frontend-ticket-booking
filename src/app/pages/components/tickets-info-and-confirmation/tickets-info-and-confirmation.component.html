@@ -1,16 +1,42 @@
 <div class="container">
     <div>
+        <button class="button" routerLink="/profile" >Update profile</button>
+    </div> 
+    <div>
+        Your profile
+    </div>
+    <table class="table table-bordered border-primary" style ="border: 1px solid black; width:80%">
+     <thead>
+         <tr>   <th>Customer Id</th>
+                 <th>First Name</th>
+                 <th>Last Name</th>
+                 <th>Phone number</th> 
+                 <th>Email</th>
+                 <th>Password</th>
+         </tr>
+     </thead>
+  
+     <tbody> 
+         <tr >
+            <td>{{customerInfos.customerId}}</td>
+            <td>{{customerInfos.fname}}</td>
+            <td>{{customerInfos.lname}}</td>
+            <td>{{customerInfos.phoneNumber}}</td>
+            <td>{{customerInfos.email}}</td>
+            <td>{{customerInfos.password}}</td>
+         </tr>
+     </tbody>
+     
+ </table><br>
+    <div>
         Your recent purchase -
     </div>
-    <table style ="border: 1px solid black; width:80%">
+    <table  class="table table-bordered border-primary" style ="border: 1px solid black; width:80%">
      <thead>
          <tr>
                  <th>Seat number</th>
                  <th>price</th>
                  <th>available</th>
-                
-               
-                
          </tr>
      </thead>
   
