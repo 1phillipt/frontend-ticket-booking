@@ -86,7 +86,7 @@ listSeats(eid:number):void{
 
       this.confirmationService.confirm({
           target: event.target as EventTarget,
-          message: 'Are you sure that you want to proceed?',
+          message: 'Delete this item from the card?',
           header: 'Confirmation',
           icon: 'pi pi-exclamation-triangle',
           acceptIcon:"none",
