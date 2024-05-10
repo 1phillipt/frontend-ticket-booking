@@ -1,6 +1,6 @@
 import { Component,OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
+
 import { Router } from '@angular/router';
 import {RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -10,10 +10,11 @@ import { MessageService } from 'primeng/api';
 
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterModule,CommonModule],
   providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

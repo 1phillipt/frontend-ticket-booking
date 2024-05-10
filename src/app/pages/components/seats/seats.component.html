@@ -3,7 +3,7 @@
     <br>
     <label><strong>Seats available</strong></label> <br>
       
-    <table class="table table-dark table-striped-columns">
+    <table class="table table table-striped-columns">
      <thead>
          <tr>
                  <th>Seat ID</th>
@@ -30,7 +30,7 @@
     <label>My cart</label>
 <div >
  <div >
-    <table class="table table-success table-striped">
+    <table class="table table-dark table-striped">
      <thead>
          <tr>
                  <th scope="col">Seat ID</th>
@@ -47,7 +47,7 @@
                  <td>{{seat.price}}</td>
                  <td>{{seat.available}}</td>
                  <td>
-                     <button class="btn btn-danger" (click)="DeleteSeatFromCard(seat.seatNumber)" >Delete item</button>
+                     <button class="btn btn-danger" (click)="DeleteSeatFromCard(seat.seatNumber)"><i class="pi pi-trash"></i></button>
                  </td>
          </tr>
      </tbody>
@@ -60,7 +60,7 @@
         <table class="table table-success table-striped">
          <thead>
              <tr>
-                     <th>Total tickets</th>
+                     <th>Total seats</th>
                      <th> Total amount </th>
                      <th> Buy</th>
                    

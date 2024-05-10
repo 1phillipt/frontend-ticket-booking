@@ -7,6 +7,7 @@
 
             <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="Card number"> <br><br>
             
+            
             <form [formGroup]="paymentinfoGroup">
                 <label>Payment Options</label> <br>
                 <input type="radio" id="debitCard" value="Debit Card" formControlName="paymentType" name="paymentType">
@@ -37,7 +38,7 @@
                     <td>{{totalTickets}}</td>
                     <td>{{totalAmount}}</td>
                      <td>
-                        <button class="btn btn-danger"  routerLink="/event/{{eventId}}">Edit Card</button>
+                        <button class="btn btn-danger"  routerLink="/event/{{eventId}}"><i class="pi pi-pencil"></i></button>
                      </td>
                     
              </tr>

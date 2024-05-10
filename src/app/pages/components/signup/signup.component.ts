@@ -3,12 +3,17 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} f
 import { UserService } from '../../../services/user.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterModule, CommonModule,ToastModule],
+  providers:[MessageService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -18,7 +23,7 @@ export class SignupComponent implements OnInit{
 
   signupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router:Router){}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router:Router, private messageService: MessageService){}
 
 
   ngOnInit(): void {
@@ -33,15 +38,17 @@ export class SignupComponent implements OnInit{
   signup(): void{
       this.userService.signup(this.signupForm.value).subscribe((result: string) =>{
         if(result === "exist"){
-          alert("user aleady exist by given phone number or email")
+          this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'user aleady exist by given phone number or email' });
+        
         }else{
-          alert("Signup successful, you can login now")
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'user aleady exist by given phone number or email' });
           this.router.navigate(['']);
         }
         },error => {
-   
-        alert("Signup failed, please check your email and password, password should be length of atleast 6");
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup failed, please check your email and password, password should be length of atleast 6' });
+       
       });
+      
   }
 
 

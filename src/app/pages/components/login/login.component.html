@@ -3,13 +3,20 @@
 
         <div class="form-group">
             <label>Username</label>
-            <input class="form-control" type = "email" id ="email" formControlName = "email" placeholder="Email"> <br><br>
+            <input class="form-control" type = "email" id ="email" formControlName = "email" placeholder="Email"> 
+        <div class="text-danger" *ngIf="loginForm.get('email').errors?.['required'] && loginForm.get('email')?.touched">
+        Please provide email.
         </div>
+        </div>
+        <br>
         <div class="form-group">
             <label>Password</label>
             <input class="form-control" type = "password" id ="password" formControlName = "password" placeholder="Password"><br><br>
-        </div>
-   
+      
+        <div class="text-danger" *ngIf="loginForm.get('password').errors?.['required'] && loginForm.get('password')?.touched">
+            Please provide password
+            </div>
+     </div>
             <button class="btn btn-primary" type ="submit">Login</button>
             <button class="btn btn-primary" style="margin-left: 20px" routerLink = "signup">Signup</button>
     </form>
