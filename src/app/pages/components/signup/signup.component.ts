@@ -35,12 +35,12 @@ export class SignupComponent implements OnInit{
         if(result === "exist"){
           alert("user aleady exist by given phone number or email")
         }else{
-          alert("signup successful, you can login now")
+          alert("Signup successful, you can login now")
           this.router.navigate(['']);
         }
         },error => {
    
-        alert("Login failed, please email and password(should be length of atleast 6");
+        alert("Signup failed, please check your email and password, password should be length of atleast 6");
       });
   }
 
