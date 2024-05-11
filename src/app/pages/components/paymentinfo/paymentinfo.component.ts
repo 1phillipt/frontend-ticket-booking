@@ -158,7 +158,7 @@ constructor(private formBuilder: FormBuilder, private userService: UserService, 
         rejectIcon:"none",
         rejectButtonStyleClass:"p-button-text",
         accept: () => {
-            this.messageService.add({ severity: 'info', summary: 'Buy now', detail: 'You have accepted' }); 
+            this.messageService.add({ severity: 'info', summary: 'purchase tickets', detail: 'You have accepted' }); 
             this.router.navigate(['payandConfirm']);
         },
         reject: () => {

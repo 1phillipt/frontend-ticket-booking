@@ -36,12 +36,13 @@ export class SignupComponent implements OnInit{
     })
   }
   signup(): void{
-      this.userService.signup(this.signupForm.value).subscribe((result: string) =>{
+      this.userService.signup(this.signupForm.value).subscribe(async (result: string) =>{
         if(result === "exist"){
           this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'user aleady exist by given phone number or email' });
         
         }else{
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'user aleady exist by given phone number or email' });
+         await this.messageService.add({ severity: 'success', summary: 'Success', detail: 'user registered' });
+          alert("User Registered")
           this.router.navigate(['']);
         }
         },error => {
